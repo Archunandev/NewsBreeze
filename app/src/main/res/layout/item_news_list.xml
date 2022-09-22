@@ -15,12 +15,13 @@
         app:cardElevation="5dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/save_bc"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/grey"
             app:cardCornerRadius="5dp">
 
             <ImageView
@@ -33,6 +34,7 @@
 
 
         <ImageView
+            android:id="@+id/news_image"
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:adjustViewBounds="true"
@@ -43,6 +45,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
+        android:id="@+id/news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -52,6 +55,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/news_des"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -61,6 +65,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/news_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -74,6 +79,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/read"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -81,6 +87,7 @@
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/save"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
