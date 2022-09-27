@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/grey_lite"
+    android:layout_marginStart="18dp"
+    android:layout_marginEnd="18dp"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -21,14 +23,24 @@
             android:layout_gravity="end"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
-            android:backgroundTint="@color/grey"
+            app:cardBackgroundColor="@color/grey"
             app:cardCornerRadius="5dp">
 
             <ImageView
+                android:id="@+id/save_img"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
+                android:visibility="visible"
                 android:src="@drawable/ic_bookmark_border" />
+
+            <ImageView
+                android:id="@+id/saved_img"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@drawable/ic_bookmark_full" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -48,7 +60,8 @@
         android:id="@+id/news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="something to be declared here"
         android:textColor="@color/black"
         android:textSize="22sp"
@@ -60,6 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:text="various to be declared here"
         android:textColor="@color/black"
         android:textSize="18sp" />
@@ -76,22 +91,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginBottom="12dp"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/read"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+           android:layout_marginEnd="8dp"
             android:text="Read"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@color/green"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/save"
-            android:layout_width="100dp"
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+           android:layout_marginStart="8dp"
             android:text="Save"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@color/green"
             android:textAllCaps="false" />
 
 
@@ -102,7 +122,7 @@
         android:layout_height="5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/view_bg" />
 
 </LinearLayout>

@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/grey_lite"
+                app:contentScrim="@android:color/transparent"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 app:titleEnabled="false">
 
@@ -41,9 +41,8 @@
                     android:scaleType="fitXY">
 
 
-
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/userProfileImage"
+                        android:id="@+id/bc_news"
                         android:layout_width="match_parent"
                         android:layout_height="350dp"
                         android:adjustViewBounds="true"
@@ -60,23 +59,25 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginBottom="12dp">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/userProfileBio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    tools:text="21-09-22" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/date_news"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        tools:text="21-09-22" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_below="@id/userProfileBio"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:text="title displayed here" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/news_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/date_news"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="title displayed here" />
 
                 </RelativeLayout>
 
@@ -87,6 +88,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="12dp"
                     android:visibility="visible"
+                    android:textAlignment="center"
                     app:contentInsetLeft="0dp"
                     app:contentInsetStart="0dp"
                     app:contentInsetStartWithNavigation="0dp"
@@ -95,7 +97,7 @@
                     app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/userProfileDisplayNameTV"
+                        android:id="@+id/save_datail"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="end"
@@ -122,68 +124,96 @@
                 android:scrollbars="none"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="18dp"
-                    android:layout_marginTop="32dp"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_marginStart="12dp"
-                       android:layout_marginTop="12dp"
-                        android:backgroundTint="@color/green"
-                        app:cardCornerRadius="5dp">
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/pizza" />
-
-                    </com.google.android.material.card.MaterialCardView>
+                    android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="3"
+                        android:layout_margin="18dp"
+                        android:layout_marginTop="32dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="12dp"
+                            android:backgroundTint="@color/green"
+                            app:cardCornerRadius="5dp">
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/author_bc"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/pizza" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/author_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="2"
+                                android:text="something to"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/news_cat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="2"
+                                android:text="something to be declared"
+                                android:textColor="@color/grey"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/save_news"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="Save"
+                            android:backgroundTint="@color/green"
+                            android:textAllCaps="false" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_below="@id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:layout_gravity="center">
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical">
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/des_detail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="2"
                             android:text="something to"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLines="2"
-                            android:text="something to be declared"
-                            android:textColor="@color/grey"
-                            android:textSize="12sp" />
-
                     </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="Save"
-                        android:textAllCaps="false" />
-
-
-                </LinearLayout>
+                </RelativeLayout>
 
 
             </androidx.core.widget.NestedScrollView>

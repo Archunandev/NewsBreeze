@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey_lite"
     android:orientation="vertical"
-    tools:context=".ui.activity.home.HomeActivity">
+    tools:context=".ui.activity.saved.SavedActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -60,7 +60,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/discoverSearchET"
+                    android:id="@+id/serch_saved"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="18dp"
@@ -145,7 +145,7 @@
         app:cardCornerRadius="12dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/top_news_rv"
+        android:id="@+id/top_saved_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="24dp"

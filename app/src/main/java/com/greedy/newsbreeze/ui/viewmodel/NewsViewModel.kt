@@ -6,9 +6,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.greedy.newsbreeze.app.NewsBreeze
+import com.greedy.newsbreeze.app.NewsBreezeApplication
+import com.greedy.newsbreeze.model.Article
 import com.greedy.newsbreeze.model.NewsResponse
 import com.greedy.newsbreeze.repository.NewsRepository
 import com.greedy.newsbreeze.util.Resource
@@ -26,8 +28,33 @@ class NewsViewModel(
     var breakingNewsPage = 1
     var breakingNewsResponse: NewsResponse? = null
 
+    val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    var searchNewsResponse: NewsResponse? = null
+
+    init {
+        getBreakingNews("in")
+    }
+
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         breakingNewsCall(countryCode)
+    }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        newsRepository.upsert(article)
+    }
+
+    fun getSavedArticles() = newsRepository.getSavedNews()
+
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newsRepository.deleteArticle(article)
+    }
+
+    fun searchSaved(searchQuery: String) = newsRepository.searchDataBse(searchQuery)
+
+
+    fun searchNews(searchQuery: String) = viewModelScope.launch {
+        searchNewsCall(searchQuery)
     }
 
     private suspend fun breakingNewsCall(countryCode: String) {
@@ -69,10 +96,45 @@ class NewsViewModel(
         return Resource.Error(response.message())
     }
 
+    private suspend fun searchNewsCall(searchQuery: String) {
+        searchNews.postValue(Resource.Loading())
+
+        try {
+            if (hasInternetConnection()) {
+                val response = newsRepository.searchNews(searchQuery)
+                searchNews.postValue(handleSearchNewsResponse(response))
+            } else {
+                searchNews.postValue(Resource.Error("No internet connection"))
+            }
+
+        } catch (t: Throwable) {
+            when (t) {
+                is IOException -> searchNews.postValue(Resource.Error("Network Failure"))
+                else -> searchNews.postValue(Resource.Error("Conversion Error"))
+            }
+        }
+    }
+
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
+
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                if (searchNewsResponse == null) {
+                    searchNewsResponse = resultResponse
+                } else {
+                    val oldArticles = searchNewsResponse?.articles
+                    val newArticles = resultResponse.articles
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(searchNewsResponse ?: resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
     private fun hasInternetConnection(): Boolean {
 
-        val connectivityManager = getApplication<NewsBreeze>().getSystemService(
+        val connectivityManager = getApplication<NewsBreezeApplication>().getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

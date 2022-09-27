@@ -16,6 +16,7 @@
 
 
     <ImageView
+        android:id="@+id/saved_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:adjustViewBounds="true"
@@ -31,12 +32,18 @@
         android:orientation="vertical"
         android:layout_gravity="center">
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#protest"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/green"
             android:textSize="18sp" />
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/saved_title"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="something to be declared"
@@ -49,15 +56,19 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/saved_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="29-03-22"
                 android:textColor="@color/grey"
                 android:textSize="16sp" />
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/saved_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="James Adam"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/grey"
                 android:textSize="16sp" />
