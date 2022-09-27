@@ -42,6 +42,9 @@ class HomeActivity : AppCompatActivity() {
         val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
 
+        newsAdapter = NewsAdapter()
+        savedAdapter = SavedNewsAdapter()
+
         performRequest()
         performSearch()
         setUpRecyclerView()
@@ -49,9 +52,10 @@ class HomeActivity : AppCompatActivity() {
         activityMainBinding.discoverSearchET.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 var searchedText = activityMainBinding.discoverSearchET.text.toString().trim()
-                if (searchedText.toString().isNotEmpty())
+                if (searchedText.toString().isNotEmpty()) {
                     viewModel.searchNews(searchedText)
                     return@OnEditorActionListener true
+                }
             }
             false
         })
@@ -164,8 +168,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun setUpRecyclerView() {
-        newsAdapter = NewsAdapter()
-        savedAdapter = SavedNewsAdapter()
         activityMainBinding.topNewsRv.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(context)
@@ -182,7 +184,9 @@ class HomeActivity : AppCompatActivity() {
 
         newsAdapter.setOnUnSaveClickListener {
             viewModel.deleteArticle(it)
-            savedAdapter.differ.currentList.remove(it)
+            viewModel.getSavedArticles().observe(this, Observer { list ->
+                savedAdapter.differ.submitList(list)
+            })
         }
 
         activityMainBinding.toggleSaved.setOnClickListener {

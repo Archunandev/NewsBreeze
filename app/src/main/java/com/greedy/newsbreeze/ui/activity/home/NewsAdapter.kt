@@ -23,7 +23,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.url == newItem.url
         }
 
         override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -72,6 +72,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
             saveBtn.setOnClickListener {
                 saveBc.setBackgroundColor(Color.parseColor("#CD4CAF50"))
+                saveBtn.text = "Saved"
                 onSaveClickListener?.let { it(article) }
             }
 
