@@ -54,15 +54,13 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
             saveImg.setOnClickListener {
                 saveBc.setBackgroundColor(Color.parseColor("#CD4CAF50"))
+                saveBtn.text = "Saved"
                 saveImg.visibility = View.GONE
                 savedImg.visibility = View.VISIBLE
                 onSaveClickListener?.let { it(article) }
             }
 
             savedImg.setOnClickListener {
-                saveBc.setBackgroundColor(Color.parseColor("#929497"))
-                saveImg.visibility = View.VISIBLE
-                savedImg.visibility = View.GONE
                 onUnSaveClickListener?.let { it(article) }
             }
 
@@ -72,8 +70,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
             saveBtn.setOnClickListener {
                 saveBc.setBackgroundColor(Color.parseColor("#CD4CAF50"))
-                saveBtn.text = "Saved"
-                onSaveClickListener?.let { it(article) }
+                saveImg.visibility = View.GONE
+                savedImg.visibility = View.VISIBLE
+                if (saveBtn.text == "Saved"){
+                    onUnSaveClickListener?.let { it(article) }
+                }else{
+                    saveBtn.text = "Saved"
+                    onSaveClickListener?.let { it(article) }
+                }
             }
 
         }

@@ -183,10 +183,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         newsAdapter.setOnUnSaveClickListener {
-            viewModel.deleteArticle(it)
-            viewModel.getSavedArticles().observe(this, Observer { list ->
-                savedAdapter.differ.submitList(list)
-            })
+            Toast.makeText(this, "News Already Saved", Toast.LENGTH_SHORT).show()
         }
 
         activityMainBinding.toggleSaved.setOnClickListener {
